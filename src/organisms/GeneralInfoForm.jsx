@@ -9,6 +9,10 @@ const GeneralInfoForm = () => {
         phone: "",
     });
 
+    const [generalInfoList, setGeneralInfoList] = useState([])
+    const [isEditing, setIsEditing] = useState(false)
+    const [editIndex, setEditIndex] = useState(null)
+
     const handleChange = (e) => {
         const { id, value } = e.target;
         console.log(e.target.value);
@@ -20,7 +24,20 @@ const GeneralInfoForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("General Info Submitted:", formData);
+        if (isEditing) {
+            const updatedList = [...generalInfoList]
+            updatedList[editIndex] = formData
+            setIsEditing(false);
+            setEditIndex(null);
+        } else {
+            setEducationList((prev) => [...prev, formData]);
+            console.log("General Info Submitted:", formData);
+        }
+        setFormData({
+            name: "",
+            email: "",
+            phone: "",
+        })
     };
 
     return (
@@ -28,13 +45,13 @@ const GeneralInfoForm = () => {
             <h2 className="text-xl font-semibold mb-4">General Information</h2>
             <div className="flex flex-col gap-4 lg:grid lg:grid-cols-3">
                 <FormGroup
-                id="name"
-                label="Name"
-                type="text"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Enter your name"
-      />
+                    id="name"
+                    label="Name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                />
 
                 <FormGroup
                     id="email"
