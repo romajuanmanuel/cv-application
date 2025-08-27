@@ -30,7 +30,7 @@ const GeneralInfoForm = () => {
             setIsEditing(false);
             setEditIndex(null);
         } else {
-            setEducationList((prev) => [...prev, formData]);
+            setGeneralInfoList((prev) => [...prev, formData]);
             console.log("General Info Submitted:", formData);
         }
         setFormData({
@@ -39,11 +39,20 @@ const GeneralInfoForm = () => {
             phone: "",
         })
     };
+    const handleEdit = (index) => {
+        setFormData(generalInfoList[index])
+        setIsEditing(true)
+        setEditIndex(index)
+    };
+
+    const handleDelete = (index) => {
+        setGeneralInfoList((prev) => prev.filter((_, i) => i !== index));
+    }
 
     return (
-        <form onSubmit={handleSubmit} className="p-4 bg-white rounded-2xl shadow-md">
+        <div className="p-4 bg-white rounded-2xl shadow-md">
             <h2 className="text-xl font-semibold mb-4">General Information</h2>
-            <div className="flex flex-col gap-4 lg:grid lg:grid-cols-3">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:grid lg:grid-cols-3">
                 <FormGroup
                     id="name"
                     label="Name"
@@ -72,10 +81,50 @@ const GeneralInfoForm = () => {
                 />
 
                 <Button type="submit" variant="primary">
-                    Save
+                    {isEditing ? "Update" : "Add"}
                 </Button>
+            </form>
+            <div className="mt-6">
+                {generalInfoList.length === 0 ? (
+                    <p className="text-gray-500">No General Info records yet.</p>
+                ) : (
+                    <ul className="space-y-4">
+                        {generalInfoList.map((gen, index) => (
+                            <li
+                                key={index}
+                                className="p-4 border rounded-xl shadow-sm flex flex-col gap-2 bg-gray-50"
+                            >
+                                <p>
+                                    <strong>Name:</strong> {gen.name}
+                                </p>
+                                <p>
+                                    <strong>Email:</strong> {gen.email}
+                                </p>
+                                <p>
+                                    <strong>Phone:</strong> {gen.phone}
+                                </p>
+                                <div className="flex gap-2 mt-2">
+                                    <Button
+                                        type="button"
+                                        variant="secondary"
+                                        onClick={() => handleEdit(index)}
+                                    >
+                                        Edit
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        variant="danger"
+                                        onClick={() => handleDelete(index)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
-        </form>
+        </div>
     );
 };
 
