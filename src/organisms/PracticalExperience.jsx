@@ -8,7 +8,7 @@ export const PracticalExperience = (props) => {
     position: "",
     responsability: "",
     from: "",
-    until: "",
+    to: "",
   });
 
   const [experienceList, setExperienceList] = useState([]);
@@ -48,7 +48,7 @@ export const PracticalExperience = (props) => {
       position: "",
       responsability: "",
       from: "",
-      until: "",
+      to: "",
     });
   };
 
@@ -106,10 +106,10 @@ export const PracticalExperience = (props) => {
           onChange={handleChange}
         />
         <FormGroup
-          id="until"
-          label="Until"
+          id="to"
+          label="to"
           type="date"
-          value={formData.until}
+          value={formData.to}
           onChange={handleChange}
         />
         <Button type="submit" variant="primary">
@@ -142,7 +142,7 @@ export const PracticalExperience = (props) => {
                   <strong>From:</strong> {exp.from}
                 </p>
                 <p>
-                  <strong>Until:</strong> {exp.until}
+                  <strong>To:</strong> {exp.to}
                 </p>
 
                 <div className="flex gap-2 mt-2">

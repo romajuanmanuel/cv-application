@@ -200,7 +200,7 @@ const CVBuilder = () => {
         writeLabelValue("Position", exp.position || "", startX);
         writeLabelValue("Responsibility", exp.responsability || "", startX);
         writeLabelValue("From", exp.from || "", startX);
-        writeLabelValue("Until", exp.until || "", startX);
+        writeLabelValue("To", exp.to || "", startX);
         cursorY += 4;
       });
 
