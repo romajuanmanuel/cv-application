@@ -2,16 +2,16 @@ import { useState } from "react";
 import FormGroup from "../components/molecules/FormGroup";
 import Button from "../components/atoms/Button";
 
-export const EducationForm = () => {
+export const EducationForm = (props) => {
   const [formData, setFormData] = useState({
     school: "",
     title: "",
     date: "",
   });
 
-  const [educationList, setEducationList] = useState([]); // 🔹 lista de registros
-  const [isEditing, setIsEditing] = useState(false); // 🔹 modo edición
-  const [editIndex, setEditIndex] = useState(null); // 🔹 índice que estoy editando
+  const [educationList, setEducationList] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -24,19 +24,23 @@ export const EducationForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    let updatedList = [];
+
     if (isEditing) {
-      // Si estoy editando, reemplazo el registro en el índice correcto
-      const updatedList = [...educationList];
+      updatedList = [...educationList];
       updatedList[editIndex] = formData;
       setEducationList(updatedList);
       setIsEditing(false);
       setEditIndex(null);
     } else {
-      // Si no estoy editando, agrego uno nuevo
-      setEducationList((prev) => [...prev, formData]);
+      updatedList = [...educationList, formData];
+      setEducationList(updatedList);
     }
 
-    // Limpio el formulario
+    if (props && typeof props.onSave === "function") {
+      props.onSave(updatedList);
+    }
+
     setFormData({ school: "", title: "", date: "" });
   };
 
@@ -47,14 +51,17 @@ export const EducationForm = () => {
   };
 
   const handleDelete = (index) => {
-    setEducationList((prev) => prev.filter((_, i) => i !== index));
+    const updatedList = educationList.filter((_, i) => i !== index);
+    setEducationList(updatedList);
+    if (props && typeof props.onSave === "function") {
+      props.onSave(updatedList);
+    }
   };
 
   return (
     <div className="p-4 bg-white rounded-2xl shadow-md">
       <h2 className="text-xl font-semibold mb-4">Educational</h2>
 
-      {/* Formulario */}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 lg:grid lg:grid-cols-3"
@@ -87,7 +94,6 @@ export const EducationForm = () => {
         </Button>
       </form>
 
-      {/* Listado */}
       <div className="mt-6">
         {educationList.length === 0 ? (
           <p className="text-gray-500">No education records yet.</p>
