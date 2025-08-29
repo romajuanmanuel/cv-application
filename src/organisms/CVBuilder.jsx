@@ -225,7 +225,7 @@ const CVBuilder = () => {
 
       <div className="flex justify-center mt-6">
         <Button type="button" variant="primary" onClick={handleDownloadPDF}>
-          Download PDF (Modern)
+          Download PDF
         </Button>
       </div>
     </div>
