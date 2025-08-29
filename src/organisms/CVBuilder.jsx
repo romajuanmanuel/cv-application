@@ -217,7 +217,7 @@ const CVBuilder = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-16 bg-indigo-500">
+    <div className="grid grid-cols-1 gap-4 p-1 bg-indigo-500">
       <Header />
       <GeneralInfoForm onSave={setGeneralInfo} />
       <EducationForm onSave={setEducation} />
