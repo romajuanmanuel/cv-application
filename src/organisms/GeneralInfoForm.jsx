@@ -94,9 +94,11 @@ const GeneralInfoForm = (props) => {
           placeholder="Enter your phone number"
         />
 
-        <Button type="submit" variant="primary">
-          {isEditing ? "Update" : "Add"}
-        </Button>
+        <div className="flex items-center justify-center">
+  <Button type="submit" variant="primary">
+    {isEditing ? "Update" : "Add"}
+  </Button>
+</div>
       </form>
 
       <div className="mt-6">

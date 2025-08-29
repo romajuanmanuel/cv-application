@@ -72,7 +72,7 @@ export const PracticalExperience = (props) => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 lg:grid lg:grid-cols-3"
+        className="flex flex-col gap-4 lg:grid lg:grid-cols-3 "
       >
         <FormGroup
           id="company"
@@ -112,9 +112,11 @@ export const PracticalExperience = (props) => {
           value={formData.to}
           onChange={handleChange}
         />
-        <Button type="submit" variant="primary">
-          {isEditing ? "Update" : "Add"}
-        </Button>
+        <div className="flex items-center justify-center">
+          <Button type="submit" variant="primary">
+            {isEditing ? "Update" : "Add"}
+          </Button>
+        </div>
 
       </form>
 
